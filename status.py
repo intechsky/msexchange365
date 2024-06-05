@@ -79,7 +79,20 @@ def generate_items(count):
         yield item
 
 
+try:
+    settings = safe_load((Path(__file__).parent.parent / "settings.yml").read_text())
+except FileNotFoundError:
+    print("Copy settings.yml.sample to settings.yml and enter values for your test server")
+    raise
 
+categories = ["perftest"]
+tz = zoneinfo.ZoneInfo("America/New_York")
+
+verify_ssl = settings.get("verify_ssl", True)
+if not verify_ssl:
+    from exchangelib.protocol import BaseProtocol, NoVerifyHTTPAdapter
+
+    BaseProtocol.HTTP_ADAPTER_CLS = NoVerifyHTTPAdapter
 
 
 # Generate items
@@ -91,6 +104,20 @@ for i in range(1, 11):
     test(calitems, chunk_size)
     time.sleep(60)
 
+try:
+    settings = safe_load((Path(__file__).parent.parent / "settings.yml").read_text())
+except FileNotFoundError:
+    print("Copy settings.yml.sample to settings.yml and enter values for your test server")
+    raise
+
+categories = ["perftest"]
+tz = zoneinfo.ZoneInfo("America/New_York")
+
+verify_ssl = settings.get("verify_ssl", True)
+if not verify_ssl:
+    from exchangelib.protocol import BaseProtocol, NoVerifyHTTPAdapter
+
+    BaseProtocol.HTTP_ADAPTER_CLS = NoVerifyHTTPAdapter
 
 print("\nTesting batch size")
 for i in range(1, 11):
