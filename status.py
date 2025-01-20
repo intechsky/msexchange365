@@ -110,6 +110,38 @@ except FileNotFoundError:
     print("Copy settings.yml.sample to settings.yml and enter values for your test server")
     raise
 
+def generate_items(count):
+    start = datetime.datetime(2000, 3, 1, 8, 30, 0, tzinfo=tz)
+    end = datetime.datetime(2000, 3, 1, 9, 15, 0, tzinfo=tz)
+    tpl_item = CalendarItem(
+        start=start,
+        end=end,
+        body=f"This is a performance optimization test of server {account.protocol.server} intended to find the "
+        f"optimal batch size and concurrent connection pool size of this server.",
+        location="It's safe to delete this",
+        categories=categories,
+    )
+    for j in range(count):
+        item = copy.copy(tpl_item)
+        item.subject = (f"Performance optimization test {j} by exchangelib",)
+        yield item
+
+
+try:
+    settings = safe_load((Path(__file__).parent.parent / "settings.yml").read_text())
+except FileNotFoundError:
+    print("Copy settings.yml.sample to settings.yml and enter values for your test server")
+    raise
+
+categories = ["perftest"]
+tz = zoneinfo.ZoneInfo("America/New_York")
+
+verify_ssl = settings.get("verify_ssl", True)
+if not verify_ssl:
+    from exchangelib.protocol import BaseProtocol, NoVerifyHTTPAdapter
+
+    BaseProtocol.HTTP_ADAPTER_CLS = NoVerifyHTTPAdapter
+
 categories = ["perftest"]
 tz = zoneinfo.ZoneInfo("America/New_York")
 
