@@ -125,6 +125,21 @@ def generate_items(count):
         item = copy.copy(tpl_item)
         item.subject = (f"Performance optimization test {j} by exchangelib",)
         yield item
+def generate_items(count):
+    start = datetime.datetime(2000, 3, 1, 8, 30, 0, tzinfo=tz)
+    end = datetime.datetime(2000, 3, 1, 9, 15, 0, tzinfo=tz)
+    tpl_item = CalendarItem(
+        start=start,
+        end=end,
+        body=f"This is a performance optimization test of server {account.protocol.server} intended to find the "
+        f"optimal batch size and concurrent connection pool size of this server.",
+        location="It's safe to delete this",
+        categories=categories,
+    )
+    for j in range(count):
+        item = copy.copy(tpl_item)
+        item.subject = (f"Performance optimization test {j} by exchangelib",)
+        yield item
 
 
 try:
@@ -157,4 +172,5 @@ for i in range(1, 11):
     account.protocol.poolsize = 5
     test(calitems, chunk_size)
     time.sleep(60)  # Sleep 1 minute. Performance will deteriorate over time if we give the server tie to recover
+
 
