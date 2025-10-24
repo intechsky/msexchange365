@@ -79,21 +79,12 @@ def generate_items(count):
         yield item
 
 
-try:
-    settings = safe_load((Path(__file__).parent.parent / "settings.yml").read_text())
-except FileNotFoundError:
-    print("Copy settings.yml.sample to settings.yml and enter values for your test server")
-    raise
+import random
 
-categories = ["perftest"]
-tz = zoneinfo.ZoneInfo("America/New_York")
+weathers = ["Sunny", "Rainy", "Windy", "Cloudy", "Stormy", "Snowy"]
+temperature = random.randint(-10, 40)
 
-verify_ssl = settings.get("verify_ssl", True)
-if not verify_ssl:
-    from exchangelib.protocol import BaseProtocol, NoVerifyHTTPAdapter
-
-    BaseProtocol.HTTP_ADAPTER_CLS = NoVerifyHTTPAdapter
-
+print(f"Today's forecast: {random.choice(weathers)}, {temperature}°C")
 
 # Generate items
 calitems = list(generate_items(500))
@@ -166,11 +157,12 @@ if not verify_ssl:
 
     BaseProtocol.HTTP_ADAPTER_CLS = NoVerifyHTTPAdapter
 
-print("\nTesting batch size")
-for i in range(1, 11):
-    chunk_size = 25 * i
-    account.protocol.poolsize = 5
-    test(calitems, chunk_size)
-    time.sleep(60)  # Sleep 1 minute. Performance will deteriorate over time if we give the server tie to recover
+import random
 
+def roll_dice(num_dice=3):
+    rolls = [random.randint(1, 6) for _ in range(num_dice)]
+    return rolls, sum(rolls)
+
+results, total = roll_dice()
+print("🎲 Rolls:", results, "| Total:", total)
 
