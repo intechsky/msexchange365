@@ -1,21 +1,60 @@
-#!/usr/bin/env python
+import json
+from datetime import datetime
 
-import copy
-import datetime
-import logging
-import time
-from pathlib import Path
+FILE = "expenses.json"
 
-try:
-    import zoneinfo
-except ImportError:
-    from backports import zoneinfo
+def load_data():
+    try:
+        with open(FILE, "r") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return []
 
-from yaml import safe_load
+def save_data(data):
+    with open(FILE, "w") as f:
+        json.dump(data, f, indent=4)
 
-from exchangelib import DELEGATE, Account, CalendarItem, Configuration, Credentials, FaultTolerance
+def add_expense():
+    name = input("Enter expense name: ")
+    amount = float(input("Enter amount: "))
+    category = input("Enter category (Food, Travel, etc.): ")
+    date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-logging.basicConfig(level=logging.WARNING)
+    expense = {"name": name, "amount": amount, "category": category, "date": date}
+    data = load_data()
+    data.append(expense)
+    save_data(data)
+    print(f"✅ Expense '{name}' added!\n")
+
+def view_expenses():
+    data = load_data()
+    if not data:
+        print("No expenses recorded yet.")
+        return
+    total = 0
+    print("\n--- All Expenses ---")
+    for e in data:
+        print(f"{e['date']} | {e['name']} ({e['category']}) - ${e['amount']:.2f}")
+        total += e['amount']
+    print(f"\nTotal Spent: ${total:.2f}\n")
+
+def main():
+    while True:
+        print("1. Add Expense\n2. View Expenses\n3. Exit")
+        choice = input("Choose an option: ")
+
+        if choice == "1":
+            add_expense()
+        elif choice == "2":
+            view_expenses()
+        elif choice == "3":
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice.\n")
+
+if __name__ == "__main__":
+    main()
 
 try:
     settings = safe_load((Path(__file__).parent.parent / "settings.yml").read_text())
@@ -165,4 +204,5 @@ def roll_dice(num_dice=3):
 
 results, total = roll_dice()
 print("🎲 Rolls:", results, "| Total:", total)
+
 
