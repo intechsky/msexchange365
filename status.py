@@ -1,18 +1,18 @@
-import json
-from datetime import datetime
+import re
 
-FILE = "expenses.json"
+def password_strength(pw):
+    score = 0
+    if len(pw) >= 8: score += 1
+    if re.search(r"[A-Z]", pw): score += 1
+    if re.search(r"[a-z]", pw): score += 1
+    if re.search(r"[0-9]", pw): score += 1
+    if re.search(r"[@$!%*#?&]", pw): score += 1
 
-def load_data():
-    try:
-        with open(FILE, "r") as f:
-            return json.load(f)
-    except FileNotFoundError:
-        return []
+    return ["Weak", "Moderate", "Strong", "Very Strong", "Excellent"][score - 1]
 
-def save_data(data):
-    with open(FILE, "w") as f:
-        json.dump(data, f, indent=4)
+pw = input("Enter password: ")
+print("Strength:", password_strength(pw))
+
 
 def add_expense():
     name = input("Enter expense name: ")
@@ -118,21 +118,16 @@ def generate_items(count):
         yield item
 
 
-import random
+import re
 
-weathers = ["Sunny", "Rainy", "Windy", "Cloudy", "Stormy", "Snowy"]
-temperature = random.randint(-10, 40)
+email = input("Enter email: ")
+pattern = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
 
-print(f"Today's forecast: {random.choice(weathers)}, {temperature}°C")
+if re.match(pattern, email):
+    print("✅ Valid email")
+else:
+    print("❌ Invalid email")
 
-# Generate items
-calitems = list(generate_items(500))
-print("\nTesting pool size")
-for i in range(1, 11):
-    chunk_size = 10
-    account.protocol.poolsize = i
-    test(calitems, chunk_size)
-    time.sleep(60)
 
 try:
     settings = safe_load((Path(__file__).parent.parent / "settings.yml").read_text())
@@ -204,5 +199,6 @@ def roll_dice(num_dice=3):
 
 results, total = roll_dice()
 print("🎲 Rolls:", results, "| Total:", total)
+
 
 
