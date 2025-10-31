@@ -1,16 +1,13 @@
-import re
+class Dog:
+    def __init__(self, name):
+        self.name = name
 
-def password_strength(pw):
-    score = 0
-    if len(pw) >= 8: score += 1
-    if re.search(r"[A-Z]", pw): score += 1
-    if re.search(r"[a-z]", pw): score += 1
-    if re.search(r"[0-9]", pw): score += 1
-    if re.search(r"[@$!%*#?&]", pw): score += 1
+    def bark(self):
+        print(f"{self.name} says Woof!")
 
-    return ["Weak", "Moderate", "Strong", "Very Strong", "Excellent"][score - 1]
+dog = Dog("Buddy")
+dog.bark()
 
-pw = input("Enter password: ")
 print("Strength:", password_strength(pw))
 
 
@@ -199,6 +196,7 @@ def roll_dice(num_dice=3):
 
 results, total = roll_dice()
 print("🎲 Rolls:", results, "| Total:", total)
+
 
 
 
