@@ -1,33 +1,26 @@
-class Dog:
-    def __init__(self, name):
-        self.name = name
+from netmiko import ConnectHandler
 
-    def bark(self):
-        print(f"{self.name} says Woof!")
+device = {
+    "device_type": "cisco_ios",
+    "host": "192.168.1.1",
+    "username": "admin",
+    "password": "cisco"
+}
 
-dog = Dog("Buddy")
-dog.bark()
+connection = ConnectHandler(**device)
 
-print("Strength:", password_strength(pw))
+commands = [
+    "interface GigabitEthernet0/1",
+    "description Connected_to_Server",
+    "ip address 10.0.0.1 255.255.255.0",
+    "no shutdown"
+]
 
+output = connection.send_config_set(commands)
+print(output)
 
-def add_expense():
-    name = input("Enter expense name: ")
-    amount = float(input("Enter amount: "))
-    category = input("Enter category (Food, Travel, etc.): ")
-    date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-    expense = {"name": name, "amount": amount, "category": category, "date": date}
-    data = load_data()
-    data.append(expense)
-    save_data(data)
-    print(f"✅ Expense '{name}' added!\n")
-
-def view_expenses():
-    data = load_data()
-    if not data:
-        print("No expenses recorded yet.")
-        return
+connection.disconnect()
+")        return
     total = 0
     print("\n--- All Expenses ---")
     for e in data:
@@ -196,6 +189,7 @@ def roll_dice(num_dice=3):
 
 results, total = roll_dice()
 print("🎲 Rolls:", results, "| Total:", total)
+
 
 
 
