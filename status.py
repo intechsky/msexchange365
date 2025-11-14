@@ -190,6 +190,53 @@ def roll_dice(num_dice=3):
 results, total = roll_dice()
 print("🎲 Rolls:", results, "| Total:", total)
 
+library = {}
+
+def add_book(title, author):
+    if title in library:
+        print("Book already exists.")
+    else:
+        library[title] = {"author": author, "borrowed": False}
+        print(f"Added '{title}' by {author}.")
+
+def borrow_book(title):
+    if title in library and not library[title]["borrowed"]:
+        library[title]["borrowed"] = True
+        print(f"You borrowed '{title}'.")
+    else:
+        print("Book unavailable.")
+
+def return_book(title):
+    if title in library and library[title]["borrowed"]:
+        library[title]["borrowed"] = False
+        print(f"You returned '{title}'.")
+    else:
+        print("Book not borrowed or doesn't exist.")
+
+def list_books():
+    print("\n--- Library Books ---")
+    for title, info in library.items():
+        status = "Borrowed" if info["borrowed"] else "Available"
+        print(f"{title} by {info['author']} — {status}")
+    print()
+
+while True:
+    print("\n1. Add Book\n2. Borrow Book\n3. Return Book\n4. List Books\n5. Exit")
+    choice = input("Enter choice: ")
+
+    if choice == "1":
+        add_book(input("Title: "), input("Author: "))
+    elif choice == "2":
+        borrow_book(input("Title: "))
+    elif choice == "3":
+        return_book(input("Title: "))
+    elif choice == "4":
+        list_books()
+    elif choice == "5":
+        break
+    else:
+        print("Invalid choice.")
+
 
 
 
