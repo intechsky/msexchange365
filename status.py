@@ -1,5 +1,23 @@
 from netmiko import ConnectHandler
 
+cisco_device = {
+    "device_type": "cisco_ios",
+    "host": "10.10.10.1",
+    "username": "admin",
+    "password": "password123",
+    "secret": "password123"
+}
+
+net_connect = ConnectHandler(**cisco_device)
+net_connect.enable()
+
+output = net_connect.send_command("show ip interface brief")
+print(output)
+
+net_connect.disconnect()
+
+from netmiko import ConnectHandler
+
 device = {
     "device_type": "cisco_ios",
     "host": "192.168.1.1",
@@ -236,6 +254,7 @@ while True:
         break
     else:
         print("Invalid choice.")
+
 
 
 
