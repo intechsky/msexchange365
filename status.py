@@ -1,3 +1,95 @@
+import random
+import time
+
+class Player:
+    def __init__(self, name):
+        self.name = name
+        self.health = 30
+        self.inventory = []
+
+    def is_alive(self):
+        return self.health > 0
+
+
+class Enemy:
+    def __init__(self, name, health, dmg_range):
+        self.name = name
+        self.health = health
+        self.dmg_range = dmg_range
+
+    def attack(self):
+        return random.randint(*self.dmg_range)
+
+
+def slow_print(text, delay=0.03):
+    for c in text:
+        print(c, end="", flush=True)
+        time.sleep(delay)
+    print()
+
+
+def battle(player, enemy):
+    slow_print(f"\n⚔️ A wild {enemy.name} appears!")
+    while enemy.health > 0 and player.is_alive():
+        slow_print(f"\nYour HP: {player.health} | {enemy.name} HP: {enemy.health}")
+        slow_print("Choose an action:\n1. Attack\n2. Heal\n> ", 0.01)
+        choice = input()
+
+        if choice == "1":
+            dmg = random.randint(4, 8)
+            enemy.health -= dmg
+            slow_print(f"You strike the {enemy.name} for {dmg} damage!")
+        elif choice == "2":
+            heal = random.randint(5, 10)
+            player.health += heal
+            slow_print(f"You heal yourself for {heal} HP.")
+        else:
+            slow_print("Invalid choice, turn wasted...")
+
+        if enemy.health > 0:
+            edmg = enemy.attack()
+            player.health -= edmg
+            slow_print(f"The {enemy.name} hits you for {edmg} damage!")
+
+    return player.is_alive()
+
+
+def game():
+    slow_print("🗺️ Welcome, traveler. What is your name?")
+    name = input("> ")
+    player = Player(name)
+    slow_print(f"Greetings, {name}. Your journey begins...\n")
+
+    time.sleep(1)
+
+    slow_print("You enter a dark forest. The wind whispers your name.")
+    time.sleep(1)
+
+    enemies = [
+        Enemy("Goblin", 15, (3, 6)),
+        Enemy("Wolf", 18, (2, 8)),
+        Enemy("Forest Spirit", 22, (4, 9))
+    ]
+
+    for enemy in enemies:
+        alive = battle(player, enemy)
+        if not alive:
+            slow_print("\n💀 You have fallen... The forest claims another soul.")
+            return
+        else:
+            slow_print(f"\n🏆 You defeated the {enemy.name}!")
+            item = random.choice(["Healing Potion", "Magic Leaf", "Iron Dagger"])
+            player.inventory.append(item)
+            slow_print(f"You found a {item}!")
+
+    slow_print("\n🌟 After defeating all foes, you find a glowing portal.")
+    slow_print("You step through it and vanish into legend...")
+    slow_print("\n🎉 THE END 🎉")
+
+
+if __name__ == "__main__":
+    game()
+
 from netmiko import ConnectHandler
 
 cisco_device = {
@@ -254,6 +346,7 @@ while True:
         break
     else:
         print("Invalid choice.")
+
 
 
 
