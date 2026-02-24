@@ -336,12 +336,6 @@ def add_book(title, author):
         library[title] = {"author": author, "borrowed": False}
         print(f"Added '{title}' by {author}.")
 
-def borrow_book(title):
-    if title in library and not library[title]["borrowed"]:
-        library[title]["borrowed"] = True
-        print(f"You borrowed '{title}'.")
-    else:
-        print("Book unavailable.")
 
 def return_book(title):
     if title in library and library[title]["borrowed"]:
@@ -373,6 +367,7 @@ while True:
         break
     else:
         print("Invalid choice.")
+
 
 
 
