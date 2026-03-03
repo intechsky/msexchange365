@@ -14,3 +14,7 @@ the Shift Schedule which already set to employee.
 Holiday List: Set the holiday under the Maintenance/Options menu.
 Leave Class: Under the Maintenance/Options menu, go on a leaves
 setting, and leaves statistical rule in report form.
+
+Welcome back! Review the items in this section to quickly get up to date on current store promotions, product information, inventory updates, and store events. Here is everything you need to know to be successful at work this week:
+
+
