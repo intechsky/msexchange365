@@ -8,7 +8,7 @@ Maintenance Timetables/Maintenance Shift Schedules: Click this
 sub­item under the Maintenance/Options menu, create the working
 Timetable in the Maintenance Timetables, manages the shift schedule,
 chooses properly working timetable or the timetable combines to
-establish the different shift schedule.
+establish the different shift schedule.sdca
 Employee Schedule: Under the Maintenance/Options menu, assign
 the Shift Schedule which already set to employee.
 Holiday List: Set the holiday under the Maintenance/Options menu.
