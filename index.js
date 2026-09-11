@@ -17,8 +17,7 @@ logo.innerText = "MyWebsite";
 const nav = document.createElement("nav");
 nav.innerHTML = `
 <a href="#" style="color:white;margin-right:20px;text-decoration:none;">Home</a>
-<a href="#" style="color:white;margin-right:20px;text-decoration:none;">About</a>
-<a href="#" style="color:white;margin-right:20px;text-decoration:none;">Services</a>
+
 <a href="#" style="color:white;text-decoration:none;">Contact</a>
 `;
 
