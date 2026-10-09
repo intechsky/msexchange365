@@ -23,6 +23,16 @@ print(f"🎯 Lucky Number: {random.randint(1, 100)}")
 print(f"🔑 Random Password: {generate_password()}")
 print(f"💬 Quote: {random.choice(quotes)}")
 
+# Random motivational quote
+quotes = [
+    "Keep going. Great things take time.",
+    "Success starts with believing in yourself.",
+    "Every day is a new opportunity.",
+    "Small progress is still progress.",
+    "Never stop learning."
+]
+
+
 colors = ["Red", "Blue", "Green", "Black", "White"]
 print(f"🎨 Random Color: {random.choice(colors)}")
 
