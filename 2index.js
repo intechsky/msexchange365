@@ -54,25 +54,6 @@ services.style.textAlign = "center";
 services.innerHTML = `
 <h2>Our Services</h2>
 
-<div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:30px;">
-
-<div style="width:250px;padding:20px;background:#f1f5f9;border-radius:10px;">
-<h3>Web Development</h3>
-<p>Modern responsive websites.</p>
-</div>
-
-<div style="width:250px;padding:20px;background:#f1f5f9;border-radius:10px;">
-<h3>UI/UX Design</h3>
-<p>Beautiful user interfaces.</p>
-</div>
-
-<div style="width:250px;padding:20px;background:#f1f5f9;border-radius:10px;">
-<h3>SEO</h3>
-<p>Improve your search rankings.</p>
-</div>
-
-</div>
-`;
 
 document.body.appendChild(services);
 
